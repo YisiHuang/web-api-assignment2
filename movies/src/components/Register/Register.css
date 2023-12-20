@@ -1,0 +1,62 @@
+.register {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f3f1f6 30%, #D9B8FF 90%); 
+  color: #E6E6FA; 
+}
+
+.register__container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: rgba(188, 143, 143, 0.3); 
+  padding: 30px;
+  border-radius: 15px; 
+  box-shadow: 0 5px 15px rgba(128, 0, 128, 0.4); 
+}
+
+.register__textBox {
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border-radius: 5px; 
+  border: 1px solid #E6E6FA; 
+  background-color: #F8F8FF; 
+}
+
+.register__btn {
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #FFFFFF; 
+  background-color: #8A2BE2; 
+  transition: background-color 0.3s; 
+}
+
+.register__btn:hover {
+  background-color: #9932CC; 
+}
+
+.register__google {
+  background-color: #9673A6; 
+}
+
+.register div {
+  margin-top: 7px;
+}
+
+.welcome {
+  position: absolute;
+  top: 30%; /* Adjusts the position from the top of the page */
+  left: 50%; /* Starts at the middle of the page */
+  transform: translateX(-50%); /* Centers the title exactly in the middle */
+  font-size: 2.5em; /* Adjusts the size of the title */
+  color: #E6E6FA; /* Light purple text color */
+  font-family: 'Arial', sans-serif; /* Font family can be changed as per your design */
+  text-shadow: 2px 2px 4px #8b81c2; /* A soft shadow with a purple hue to add a dreamy effect */
+}
