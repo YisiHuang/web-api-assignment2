@@ -28,21 +28,13 @@ export const getMovie = (args) => {
     throw error
  });
 };
-  
+
   export const getGenres = async () => {
-    return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        process.env.REACT_APP_TMDB_KEY +
-        "&language=en-US"
-    ).then( (response) => {
-      if (!response.ok) {
-        throw new Error(response.json().message);
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      throw error
-   });
+    return fetch("http://localhost:8080/api/genres/tmdb/genres", {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get'}).then(res => res.json())
   };
   
   export const getMovieImages = ({ queryKey }) => {
@@ -73,19 +65,12 @@ export const getMovie = (args) => {
       });
   };
 
-  export const getUpcomingMovies = () => {
-    return fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    ).then( (response) => {
-      if (!response.ok) {
-        throw new Error(response.json().message);
-      }
-      return response.json();
-  
-    })
-    .catch((error) => {
-      throw error
-   });
+  export const getUpcomingMovies = async () => {
+    return fetch("/api/movies/tmdb/upcoming", {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get'}).then(res => res.json())
   };
 
   export const getTrendingMovies = () => {
