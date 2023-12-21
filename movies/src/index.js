@@ -17,11 +17,11 @@ import NowPlayingPage from "./pages/nowPlayingPage";
 import CastListPage from "./pages/castListPage";
 import CrewListPage from "./pages/crewListPage";
 import PersonPage from "./pages/personDetailsPage";
-import Login from "./components/login/Login";
-import Register from "./components/Register/Register";
-import Reset from "./components/Reset/Reset";
-import Dashboard from "./components/Dashboard/Dashboard";
+import LoginPage from "./pages/loginPage";
+import SignUpPage from "./pages/signUpPage.js";
 import TopRatedTVPage from "./pages/topRatedTVPage";
+import AuthContextProvider from "./contexts/authContext";
+import ProtectedRoutes from "./protectedRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +37,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <AuthContextProvider>
         <SiteHeader />
         <MoviesContextProvider>
         <Routes>
@@ -46,20 +47,21 @@ const App = () => {
           <Route path="/movies/trending" element={<TrendingMoviesPage />} />
           <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
           <Route path="/movies/:id" element={<MoviePage />} />
+          <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+          </Route>
           <Route path="*" element={ <Navigate to="/" /> } />
           <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
           <Route path="/movies/now_playing" element={ <NowPlayingPage /> } />
           <Route path="/movies/:id/cast" element={<CastListPage />} />
           <Route path="/movies/:id/crew" element={<CrewListPage />} />
           <Route path="/person/:id" element={<PersonPage />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/reset" element={<Reset />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/tv/top_rated" element={ <TopRatedTVPage /> } />
         </Routes>
         </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
