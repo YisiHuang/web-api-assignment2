@@ -76,13 +76,16 @@ export const getMovie = (args) => {
 
   export const getMovieReviews = (id) => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        // console.log(json.results);
-        return json.results;
-      });
+            `http://localhost:8080/api/movies/tmdb/movie/${id}/reviews`, {
+                headers: {
+                    'Authorization': window.localStorage.getItem('token')
+                }
+            }
+        )
+        .then((res) => res.json())
+        .then((json) => {
+            return json;
+        });
   };
 
   export const getUpcomingMovies = () => {
