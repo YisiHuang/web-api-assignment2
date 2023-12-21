@@ -71,3 +71,17 @@ export const getMovieReviews = (id) => {
         return json.results;
       });
   };
+
+export const getMovieImages = (args) => {
+    return fetch(
+            `https://api.themoviedb.org/3/movie/${args}/images?api_key=${process.env.TMDB_KEY}`
+        ).then((response) => {
+            if (!response.ok) {
+                throw new Error(response.json().message);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            throw error
+        });
+};
