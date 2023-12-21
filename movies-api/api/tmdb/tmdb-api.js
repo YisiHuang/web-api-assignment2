@@ -129,3 +129,23 @@ export const getNowPlaying = () => {
             throw error
         });
 };
+
+export const getMovieCredits = (id) => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.TMDB_KEY}`
+    )
+    .then((res) => res.json())
+      .then((json) => {
+        return json;
+      });
+  };
+
+export const getPersonDetails = (id) => {
+    return fetch(
+      `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.TMDB_KEY}`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        return json;
+      });
+  };
