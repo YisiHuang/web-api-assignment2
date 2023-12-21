@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from '../contexts/authContext';
+import './SignUpPage.css';
 
 const SignUpPage = props => {
   const context = useContext(AuthContext)
@@ -24,21 +25,21 @@ const SignUpPage = props => {
   }
 
   return (
-    <>
-      <h2>SignUp page</h2>
-      <p>You must register a username and password to log in </p>
-      <input value={userName} placeholder="user name" onChange={e => {
+    <div className="signup-container">
+      <h2 className="signup-heading">SignUp page</h2>
+      <p className="signup-info">You must register a username and password to log in</p>
+      <input value={userName} className="signup-input" placeholder="User Name" onChange={e => {
         setUserName(e.target.value);
       }}></input><br />
-      <input value={password} type="password" placeholder="password" onChange={e => {
+      <input value={password} className="signup-input" type="password" placeholder="Password" onChange={e => {
         setPassword(e.target.value);
       }}></input><br />
-      <input value={passwordAgain} type="password" placeholder="password again" onChange={e => {
+      <input value={passwordAgain} className="signup-input" type="password" placeholder="Password Again" onChange={e => {
         setPasswordAgain(e.target.value);
       }}></input><br />
-      {/* Login web form  */}
-      <button onClick={register}>Register</button>
-    </>
+      {/* Register web form */}
+      <button className="signup-button" onClick={register}>Register</button>
+    </div>
   );
 };
 

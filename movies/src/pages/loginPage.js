@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from '../contexts/authContext';
 import { Link } from "react-router-dom";
+import './LoginPage.css';
 
 const LoginPage = props => {
     const context = useContext(AuthContext);
@@ -23,20 +24,19 @@ const LoginPage = props => {
     }
 
     return (
-        <>
-            <h2>Login page</h2>
-            <p>You must log in to view the protected pages </p>
-            <input id="username" placeholder="user name" onChange={e => {
+        <div className="login-container">
+            <h2 className="login-heading">Login page</h2>
+            <p className="login-info">You must log in to view the protected pages </p>
+            <input id="username" className="login-input" placeholder="User Name" onChange={e => {
                 setUserName(e.target.value);
             }}></input><br />
-            <input id="password" type="password" placeholder="password" onChange={e => {
+            <input id="password" className="login-input" type="password" placeholder="Password" onChange={e => {
                 setPassword(e.target.value);
             }}></input><br />
-            {/* Login web form  */}
-            <button onClick={login}>Log in</button>
-            <p>Not Registered?
-                <Link to="/signup">Sign Up!</Link></p>
-        </>
+            {/* Login web form */}
+            <button className="login-button" onClick={login}>Log in</button>
+            <p className="signup-info">Not Registered? <Link to="/signup">Sign Up!</Link></p>
+        </div>
     );
 };
 
