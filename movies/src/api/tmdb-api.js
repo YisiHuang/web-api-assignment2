@@ -111,6 +111,34 @@ export const getMovie = (args) => {
         
 };
 
+export const addFavorite = (username, newFavorite) => {
+    return fetch(`/api/users/${username}/favorites`, {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({ username: username, newFavorite: newFavorite })
+    }).then(res => res.json())
+  };
+
+  export const getFavorites = async (username) => {
+    return fetch(`/api/users/${username}/favorites`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get'}).then(res => res.json())
+  };
+
+  export const deleteFavorite = (username, movie) => {
+    return fetch(`/api/users/${username}/movie/${movie.id}/favourites`, {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({ movie })
+    }).then(res => res.json())
+  };
+
   export const getTrendingMovies = () => {
     return fetch(
         `http://localhost:8080/api/movies/tmdb/trending`, {

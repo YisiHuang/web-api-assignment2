@@ -2,6 +2,7 @@ import express from 'express';
 import User from './userModel';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
+import movieModel from '../movies/movieModel';
 
 const router = express.Router(); // eslint-disable-line
 
@@ -62,5 +63,45 @@ async function authenticateUser(req, res) {
         res.status(401).json({ success: false, msg: 'Wrong password.' });
     }
 }
+
+router.post('/:userName/favorites', asyncHandler(async (req, res) => {
+
+    const newFavorite = req.body.newFavorite;
+    const userName = req.params.userName;
+  
+    const user = await User.findByUserName(userName);
+  
+    if (user.favorites.includes(newFavorite)) {
+  
+  
+        res.status(201).json({code: 201, msg: 'Already exists in favorites.'})
+    } else {
+        await user.favorites.push(newFavorite);
+        await user.save();
+        console.log(user) 
+        res.status(201).json(user); 
+    }
+  }));
+  
+router.post('/:username/movie/:id/favorites', asyncHandler(async (req, res) => {
+    const newFavorite = req.body.newFavorite;
+    const userName = req.params.username;
+    const user = await User.findByUserName(userName);
+    const index = user.favorites.indexOf(newFavorite)
+    await user.favorites.splice(index, 1);
+    await user.save(); 
+    return res.status(201).json(user); 
+  }));
+  
+  
+router.get('/:userName/favorites', asyncHandler( async (req, res) => {
+    const userName = req.params.userName;
+    const users = await User.find();
+    console.log(users)
+    const user = await User.findByUserName(userName);
+  
+    res.status(200).json(user.favorites);
+  
+  }));
 
 export default router;

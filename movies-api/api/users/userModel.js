@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const passwordRegulation =/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 const UserSchema = new Schema({
   username: { type: String, unique: true, required: true},
-  password: {type: String, required: true, match:[passwordRegulation]}
+  password: {type: String, required: true, match:[passwordRegulation]},
+  favorites: [{type: Number}]
 });
 
 UserSchema.methods.comparePassword = async function (passw) { 

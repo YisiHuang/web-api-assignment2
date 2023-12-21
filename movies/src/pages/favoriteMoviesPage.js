@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -6,9 +6,23 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner';
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
+import { AuthContext } from "../contexts/authContext";
+import { getFavorites } from "../api/tmdb-api";
 
 const FavoriteMoviesPage = () => {
-  const {favorites: movieIds } = useContext(MoviesContext);
+  const userContext = useContext(AuthContext)
+  const username = userContext.userName
+
+  const [favorites, setFavorites] = useState([]);
+  useEffect(() => {
+    if (userContext.isAuthenticated) {
+      getFavorites(username).then((favorites) => {
+        setFavorites(favorites);
+      });
+    }
+  }, []);
+  console.log(favorites)
+  const { favorites: movieIds } = useContext(MoviesContext);
 
   // Create an array of queries and run in parallel.
   console.log(movieIds)
