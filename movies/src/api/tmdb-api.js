@@ -149,15 +149,19 @@ export const getNowPlaying = () => {
       
 };
 
-  export const getMovieCredits = async (id) => {
-    return fetch(`http://localhost:8080/api/people/movie/${id}/credits`, {
+export const getMovieCredits = async (args) => {
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
+  return fetch(`http://localhost:8080/api/people/movie/${id}/credits`, {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'get'}).then(res => res.json())
   };
 
-export const getPersonDetails = async (id) => {
+  export const getPersonDetails = async (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
     return fetch(`http://localhost:8080/api/people/${id}`, {
         headers: {
             'Content-Type': 'application/json'
@@ -165,7 +169,7 @@ export const getPersonDetails = async (id) => {
         method: 'get'}).then(res => res.json())
   };
 
-  export const getTopRatedTV = () => {
+export const getTopRatedTV = () => {
     return fetch(
         `http://localhost:8080/api/movies/tmdb/topRated`, {
           headers: {
