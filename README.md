@@ -4,11 +4,10 @@ Name: Yisi Huang
 
 ## Features.
  
- *** React Movies App fully integrated, all fetches from frontend app have gone to the movies API. ***
-
+ + React Movies App fully integrated, all fetches from frontend app have gone to the movies API. 
  + Login and Signup authentication
-    - After successful signup, it will jump to login page and wait to login.
-    - Before successfully login, the home page, favorites page, must watch page and trending page are invisible.
+    - After successful signup, it will jump to login page and wait to login
+    - Before successfully login, the home page, favorites page, must watch page and trending page are invisible
  + Movie Credits and Person Details endpoints integrated with Mongodb
  + Modify favorites function
     - User-specific data favorites is displayed
@@ -17,7 +16,7 @@ Name: Yisi Huang
     - Add discover, movie reviews, movie images, movie details, trending, top rated, now playing endpoints in movies api
     - Modify genres endpoint in genres api
     - Add users, post users, put users, user favorites, post user favorites in users api
-    - Add movie credits and person details in people api.
+    - Add movie credits and person details in people api
 
 ## Setup requirements.
 
@@ -31,28 +30,51 @@ npm run dev //For movies-api repo
 
 ## API Configuration
 
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
+I create an `.env` file in movies-api.
 
 REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
 
 ______________________
-NODEENV=development
+NODE_ENV=development
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
-secret=YourJWTSecret
+HOST=localhost
+MONGO_DB=YourMongoURL
+TMDB_KEY=YourTMDBKey
+SECRET=YourJWTSecret
 ______________________
 
 ## API Design
-Give an overview of your web API design, perhaps similar to the following: 
+An overview of your web API design. 
 
-- /api/movies | GET | Gets a list of movies 
-- /api/movies/{movieid} | GET | Gets a single movie 
-- /api/movies/{movieid}/reviews | GET | Get all reviews for movie 
-- /api/movies/{movieid}/reviews | POST | Create a new review for Movie 
+movies:
+- /api/movies | GET | Get movies from tmdb 
+- /api/movies | POST | Add movie into movie list
+- /api/movies/tmdb/movie/:id/reviews | GET | Get movie reviews
+- /api/movies/tmdb/movie/:id/reviews | POST | Add a movie review
+- /api/movies/:id | GET | Get movie details
+- /api/movies/tmdb/movie/:id/images | GET | Get movie images
+- /api/movies/tmdb/discover | GET | Get movies
+- /api/movies/tmdb/upcoming | GET | Get upcoming movies
+- /api/movies/tmdb/topRated | GET | Get top rated
+- /api/movies/tmdb/nowPlaying | GET | Get now playing movies
+- /api/movies/tmdb/trending | GET | Get trending movies
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+genres:
+- /api/genres/tmdb/genres | GET | Get movie genres
+- /api/genres/tmdb/genres | POST | Add movie genres
+
+users:
+- /api/users | GET | Get user information
+- /api/users | POST | Add new user
+- /api/users/:id | PUT | Update users information
+- /api/user/:username/favorites | GET | Get user's favorites movies
+- /api/user/:username/favorites | POST | Add users new favorite movies
+
+people:
+- /api/people/movie/:id/credits | GET | Get movie credits
+- /api/people/:id | GET | Get people details of movies
+
+I have my API design on [Swaggerhub](https://app.swaggerhub.com/apis/20095257/web-api-assignment2/1.0.0/).
 
 ## Security and Authentication
 
