@@ -32,8 +32,6 @@ npm run dev //For movies-api repo
 
 I create an `.env` file in movies-api.
 
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
-
 ______________________
 NODE_ENV=development
 PORT=8080
@@ -78,12 +76,62 @@ I have my API design on [Swaggerhub](https://app.swaggerhub.com/apis/20095257/we
 
 ## Security and Authentication
 
-Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
+Use JWT to authentication, home page, must watch page, now playing page and favorites page are protected. If we haven't login, all of these pages are invisible. All these pages can be seen after successfully login.
 
 ## Integrating with React App
 
-Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
+All of the views use Web API instead of the TMDB API. 
+Here is movie credits example of integrate:
+Firstly, I transfer credits api from frontend to backend:
+```
+export const getMovieCredits = (id) => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.TMDB_KEY}`
+    )
+    .then((res) => res.json())
+      .then((json) => {
+        return json;
+      });
+  };
+```
+Next, I add router in movies api:
+```
+router.get('/movie/:id/credits', asyncHandler(async (req, res) => {
+    const id = parseInt(req.params.id);
+    const credits = await getMovieCredits(id);
+    if (credits) {
+        try {
+            let creditsStored = await creditsModel.findByMovieDBId(id);
+            if (creditsStored) {
+                console.info(`movie credit details already stored.`);
+            }
+            else {
+                creditsStored = await creditsModel.create(credits);
+                console.info(`movie credit details successfully stored.`);
+            }
+            res.status(200).json(credits);
+          } catch (err) {
+            console.error(`failed to handle movie credit details data: ${err}`);
+          }
+    } else {
+        res.status(404).json({message: 'The resource you requested could not be found.', status_code: 404});
+    }
+}));
+```
+Last, I need to change the api in frontend to fetch:
+```
+export const getMovieCredits = async (args) => {
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
+  return fetch(`http://localhost:8080/api/people/movie/${id}/credits`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get'}).then(res => res.json())
+  };
+```
+It can be succesfully integrated.
 
 ## Independent learning (if relevant)
 
-Briefly explain any non-standard features developed for the app.   
+I learn login and sign up authentication, and protect password of users.
