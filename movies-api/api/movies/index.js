@@ -71,6 +71,23 @@ router.get('/tmdb/movie/:id/reviews', asyncHandler(async(req, res) => {
     res.status(200).json(reviews);
 }));
 
+router.post('/tmdb/movie/:id/reviews', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (movieReviews.id == id) {
+        req.body.created_at = new Date();
+        req.body.updated_at = new Date();
+        req.body.id = uniqid();
+        movieReviews.results.push(req.body); //push the new review onto the list
+        res.status(201).json(req.body);
+    } else {
+        res.status(404).json({
+            message: 'The resource you requested could not be found.',
+            status_code: 404
+        });
+    }
+});
+
 router.get('/tmdb/movie/:id/images', asyncHandler(async(req, res) => {
     const id = req.params.id;
     const images = await getMovieImages(id);
