@@ -1,19 +1,33 @@
 # Assignment 2 - Web API.
 
-Name: Your Name
+Name: Yisi Huang
 
 ## Features.
-
-A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
  
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
+ *** React Movies App fully integrated, all fetches from frontend app have gone to the movies API. ***
+
+ + Login and Signup authentication
+    - After successful signup, it will jump to login page and wait to login.
+    - Before successfully login, the home page, favorites page, must watch page and trending page are invisible.
+ + Movie Credits and Person Details endpoints integrated with Mongodb
+ + Modify favorites function
+    - User-specific data favorites is displayed
+ + Add genres schema, person mongodb schema, credits mongodb schema
+ + Fully integrated
+    - Add discover, movie reviews, movie images, movie details, trending, top rated, now playing endpoints in movies api
+    - Modify genres endpoint in genres api
+    - Add users, post users, put users, user favorites, post user favorites in users api
+    - Add movie credits and person details in people api.
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
+Outline any non-standard setup steps necessary to run app locally after cloning the repo.
+
+```
+npm install
+npm start //For movies repo
+npm run dev //For movies-api repo
+```
 
 ## API Configuration
 
